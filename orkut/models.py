@@ -14,7 +14,7 @@ class Questions(models.Model):
         return self.title
 
 
-class Answes(models.Model):
+class Answers(models.Model):
     questions=models.ForeignKey(Questions,on_delete=models.CASCADE)
     answers=models.CharField(max_length=200)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
@@ -27,3 +27,14 @@ class Answes(models.Model):
 
 
 
+#from orkut.models import Questions,Answes
+#from django.contrib.auth.models import User
+# usr=User.objects.get(id=2)
+#Questions.objects.create(title="django",description="django architecture?",user=usr)
+#usr.questions_set.create(title="javascript",description="is js synchronous")
+#usr.questions_set.all()
+#ques=Questions.objects.get(id=4)
+#ques.answers_set.create(answers="qatar",user=usr
+#ans=Answers.objects.get(id=4)
+# ans.upvote.add(usr)
+#ans.up_vote.all() 
