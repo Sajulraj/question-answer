@@ -15,7 +15,13 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.urls import path
+from orkut import views
+from rest_framework.routers import DefaultRouter
+router=DefaultRouter()
+router.register("users",views.OrkutModelview,basename="users")
+router.register("questions",views.QuestionViewset,basename="questions")
+router.register("answers",views.AnswerViewset,basename="answers")
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-]
+]+router.urls

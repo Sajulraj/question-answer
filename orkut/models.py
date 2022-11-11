@@ -1,6 +1,7 @@
 
 from django.db import models
 from django.contrib.auth.models import User
+from django.db.models import Count
 # Create your models here.
 
 class Questions(models.Model):
@@ -9,6 +10,11 @@ class Questions(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     created_date=models.DateField(auto_now_add=True)
     image=models.ImageField(upload_to="images",null=True)
+
+    @property
+    def question_answers(self):
+        qs=self.answers_set.all().annotate(u_count=Count("up_vote")).order_by("-u_count")
+        return qs
 
     def __str__(self):
         return self.title
@@ -21,6 +27,9 @@ class Answers(models.Model):
     created_date=models.DateField(auto_now_add=True)
     up_vote=models.ManyToManyField(User,related_name="up_vote")
 
+    @property
+    def upvotes(self):
+        return self.up_vote.all().count()
     def __str__(self):
         return self.answers
 
