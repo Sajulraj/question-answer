@@ -15,7 +15,7 @@ class OrkutModelview(ModelViewSet):
 class QuestionViewset(ModelViewSet):
     serializer_class=QuestionSerializer
     queryset=Questions.objects.all()
-    authentication_classes=[authentication.BasicAuthentication]
+    authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
 
     def perform_create(self, serializer):
@@ -49,7 +49,7 @@ class QuestionViewset(ModelViewSet):
 class AnswerViewset(ModelViewSet):
     serializer_class=Answerserializer
     queryset=Answers.objects.all()
-    authentication_classes=[authentication.BasicAuthentication]
+    authentication_classes=[authentication.TokenAuthentication]
     permission_classes=[permissions.IsAuthenticated]
 
     @action(methods=["get"],detail=True)

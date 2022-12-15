@@ -14,14 +14,18 @@ Including another URLconf
     2. Add a URL to urlpatterns:  path('blog/', include('blog.urls'))
 """
 from django.contrib import admin
-from django.urls import path
+from django.urls import path,include
 from orkut import views
 from rest_framework.routers import DefaultRouter
+from rest_framework.authtoken.views import ObtainAuthToken
 router=DefaultRouter()
 router.register("users",views.OrkutModelview,basename="users")
 router.register("questions",views.QuestionViewset,basename="questions")
 router.register("answers",views.AnswerViewset,basename="answers")
 
+
 urlpatterns = [
     path('admin/', admin.site.urls),
+    path("token/",ObtainAuthToken.as_view()),
+    path("web/", include("webapp.urls"))
 ]+router.urls

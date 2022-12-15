@@ -38,7 +38,9 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'orkut',
-    'rest_framework'
+    'rest_framework',
+    'rest_framework.authtoken',
+    'webapp'
 ]
 
 MIDDLEWARE = [
