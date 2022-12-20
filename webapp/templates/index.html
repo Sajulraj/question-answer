@@ -1,5 +1,5 @@
 {%extends 'base.html'%}
-{%block title%}Login
+{%block title%}Question And Answers
 {%endblock%}
 {%block body_block%}
 <div class="row">
@@ -7,13 +7,13 @@
     <div class="col-4">
         {%for m in messages%}
         {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
-        <div class="alert alert-Danger alert-dismissible fade show" role="alert">
+        <div class="alert alert-danger alert-dismissible fade show" role="alert">
             <strong>{{m}}</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
         {%endif%}
         {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
-        <div class="alert alert-Success alert-dismissible fade show" role="alert">
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
             <strong>{{m}}</strong> 
             <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
           </div>
@@ -22,18 +22,8 @@
     </div>
     <div class="col-4"></div>
 </div>
-<div class="container">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <h2 class="text-center mt5">Login</h2>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <button type="submit" class="btn btn-outline-info btn mt-1" style="width: 100%;">Login</button>
-                </form>
-            </div>
-            <div class="col-3"></div>
-        </div>
+    <h1 class="text-center">Question And Answers{{request.user}}</h1>
+    <div>
+        <a href="{%url 'question-list' %}">List all question</a>
     </div>
 {%endblock%}
