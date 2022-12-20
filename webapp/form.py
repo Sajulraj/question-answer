@@ -30,16 +30,4 @@ class UserLoginForm(forms.Form):
     password=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
 
 
-class QuestionForm(forms.ModelForm):
-    class Meta:
-        model=Questions
-        fields=[
-            "title","description"
-        ]
-
-        widgets={
-            "title":forms.TextInput(attrs={"class":"form-control"}),
-            "description":forms.TextInput(attrs={"class":"form-control"})
-             
-        }
     

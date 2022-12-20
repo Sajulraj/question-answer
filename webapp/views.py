@@ -1,6 +1,6 @@
 from django.shortcuts import render,redirect
 from django.views.generic import View,TemplateView,CreateView,FormView
-from webapp.form import UserRegistrationForm,UserLoginForm,QuestionForm
+from webapp.form import UserRegistrationForm,UserLoginForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
 from orkut.models import Questions
@@ -49,7 +49,3 @@ class LoginView(FormView):
 class IndexView(TemplateView):
     template_name="index.html"
 
-class QuestionLstView(View):
-    def get(self,request,*args,**kw):
-        qs=Questions.objects.filter(user=request.user)
-        return render(request,"question-list.html",{"question":qs})

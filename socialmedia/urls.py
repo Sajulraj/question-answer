@@ -27,5 +27,5 @@ router.register("answers",views.AnswerViewset,basename="answers")
 urlpatterns = [
     path('admin/', admin.site.urls),
     path("token/",ObtainAuthToken.as_view()),
-    path("web/", include("webapp.urls"))
+    path("", include("webapp.urls"))
 ]+router.urls

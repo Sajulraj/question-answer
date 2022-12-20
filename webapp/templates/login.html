@@ -1,39 +1,34 @@
-{%extends 'base.html'%}
-{%block title%}Login
-{%endblock%}
-{%block body_block%}
-<div class="row">
-    <div class="col-4"></div>
-    <div class="col-4">
-        {%for m in messages%}
-        {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
-        <div class="alert alert-Danger alert-dismissible fade show" role="alert">
-            <strong>{{m}}</strong> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {%endif%}
-        {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
-        <div class="alert alert-Success alert-dismissible fade show" role="alert">
-            <strong>{{m}}</strong> 
-            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
-          </div>
-        {%endif%}
-        {%endfor%}
-    </div>
-    <div class="col-4"></div>
-</div>
-<div class="container">
-        <div class="row">
-            <div class="col-3"></div>
-            <div class="col-6">
-                <h2 class="text-center mt5">Login</h2>
-                <form action="" method="post">
-                    {% csrf_token %}
-                    {{form.as_p}}
-                    <button type="submit" class="btn btn-outline-info btn mt-1" style="width: 100%;">Login</button>
-                </form>
-            </div>
-            <div class="col-3"></div>
+<!DOCTYPE html>
+{%load static%}
+<!-- Coding By CodingNepal - youtube.com/codingnepal -->
+<html lang="en" dir="ltr">
+  <head>
+    <meta charset="utf-8">
+    <title>Login</title>
+    <link rel="stylesheet" href="{%static 'css/loginstyle.css'%}">
+  </head>
+  <body>
+    <div class="center">
+      <h1>Login</h1>
+      <form method="post">
+        {%csrf_token%}
+        <div class="txt_field">
+          <input type="text" name="username" id="id_username" required>
+          <span></span>
+          <label>Username</label>
         </div>
+        <div class="txt_field">
+          <input type="password" name="password" id="id_password" required>
+          <span></span>
+          <label>Password</label>
+        </div>
+        <div class="pass">Forgot Password?</div>
+        <input type="submit" value="Login">
+        <div class="signup_link">
+          Not a member? <a href="{%url 'register' %}">Signup</a>
+        </div>
+      </form>
     </div>
-{%endblock%}
+
+  </body>
+</html>
