@@ -29,5 +29,17 @@ class UserLoginForm(forms.Form):
     username=forms.CharField(widget=forms.TextInput(attrs={"class":"form-control"}))
     password=forms.CharField(widget=forms.PasswordInput(attrs={"class":"form-control"}))
 
+class QuestiionForm(forms.ModelForm):
+    class Meta:
+        model=Questions
+        fields=["title","description","image"]
+
+
+        widgets={
+            "title":forms.TextInput(attrs={"class":"form-control"}),
+            "description":forms.Textarea(attrs={"class":"form-control","rows":5}),
+            "image":forms.FileInput(attrs={"class":"form-select"})
+        }
+
 
     

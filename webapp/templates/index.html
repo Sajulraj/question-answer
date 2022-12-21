@@ -1,5 +1,6 @@
 {%extends 'base.html'%}
 {%block body_block%}
+<!-- add question -->
     <div class="row">
         <div class="col-4"></div>
         <div class="col-4">
@@ -21,7 +22,73 @@
         <div class="col-4"></div>
     </div>
         <h1 class="text-center">Question And Answers <hr> {{request.user}} </h1>
-        <div>
-            <a href="{#}">List all question</a>
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            <form action="" method="post" enctype="multipart/form-data">
+                {%csrf_token%}
+                {{form.as_p}}
+                <input type="submit" value="add">
+            </form>
         </div>
+        <div class="col-4"></div>
+    </div>
+    <hr>
+    <!-- add question end -->
+    <!-- question list -->
+    
+    <div class="row gx-4 gx-lg-5 justify-content-center">
+        {%for q in questions%}
+        <div class="col-md-10 col-lg-8 col-xl-7">
+            <!-- Post preview-->
+            <div class="post-preview">
+                <a href="post.html">
+                    <h2 class="post-title">{{q.title}}</h2>
+                    <h3 class="post-subtitle">{{q.description}}</h3>
+                </a>
+                <p class="post-meta">
+                    Posted by
+                    <a href="#!">{{q.user}}</a>
+                    on {{q.created_date}}
+                </p>
+            </div>
+            <!-- Divider-->
+            <h5 class="post-title">Answers</h5>
+            {%for ans in q.question_answers%}
+            <div>
+                {{ans}}
+                <i class="fa-solid fa-heart"></i>{{ans.upvotes}} votes
+                <i class="fa-solid fa-user"></i> {{ans.user}}
+                <i class="fa-solid fa-calendar-days"></i> {{ans.created_date}}
+                </p>
+            </div>
+            {%endfor%}
+            <hr class="my-4" />
+        </div>
+        {%endfor%}
+    </div>
+    <!-- question list end -->
+    <!-- messages question -->
+    <div class="row">
+        <div class="col-4"></div>
+        <div class="col-4">
+            {%for m in messages%}
+            {%if m.level == DEFAULT_MESSAGE_LEVELS.ERROR%}
+            <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                <strong>{{m}}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {%endif%}
+            {%if m.level == DEFAULT_MESSAGE_LEVELS.SUCCESS%}
+            <div class="alert alert-success alert-dismissible fade show" role="alert">
+                <strong>{{m}}</strong> 
+                <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+              </div>
+            {%endif%}
+            {%endfor%}
+        </div>
+        <div class="col-4"></div>
+    </div>
+    <!-- end messages -->
+
 {%endblock%}

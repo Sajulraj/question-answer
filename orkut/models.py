@@ -9,7 +9,8 @@ class Questions(models.Model):
     description=models.CharField(max_length=400)
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     created_date=models.DateField(auto_now_add=True)
-    image=models.ImageField(upload_to="images",null=True)
+    image=models.ImageField(upload_to="images",null=True,blank=True)
+    
 
     @property
     def question_answers(self):
@@ -26,6 +27,7 @@ class Answers(models.Model):
     user=models.ForeignKey(User,on_delete=models.CASCADE)
     created_date=models.DateField(auto_now_add=True)
     up_vote=models.ManyToManyField(User,related_name="up_vote")
+    
 
     @property
     def upvotes(self):
