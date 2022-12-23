@@ -43,6 +43,11 @@
             <!-- Post preview-->
             <div class="post-preview">
                 <a href="post.html">
+                    {%if q.image%}
+                    <div>
+                        <img src="{{q.image.url}}" alt="" class="w-100">
+                    </div>
+                    {%endif%}
                     <h2 class="post-title">{{q.title}}</h2>
                     <h3 class="post-subtitle">{{q.description}}</h3>
                 </a>
@@ -52,10 +57,18 @@
                     on {{q.created_date}}
                 </p>
             </div>
-            <!-- Divider-->
+            <!-- answer-->
+            <div>
+                <form action="{%url 'add-answer' q.id %}" method="post" >
+                    {%csrf_token%}
+                    <input type="text" placeholder="enter your answer" name="answer" class="form-control">
+                    <button type="submit" class="btn btn-outline-info">Add</button>
+                </form>
+            </div>
             <h5 class="post-title">Answers</h5>
             {%for ans in q.question_answers%}
-            <div>
+            <div class="border rounded-pill p-3 border-success mt-2">
+                <a href="{%url 'add-upvote' q.id %}" class="btn btn-warning btn-sm">upvote</a>
                 {{ans}}
                 <i class="fa-solid fa-heart"></i>{{ans.upvotes}} votes
                 <i class="fa-solid fa-user"></i> {{ans.user}}

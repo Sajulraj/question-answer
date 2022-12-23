@@ -3,20 +3,23 @@ from django.views.generic import View,TemplateView,CreateView,FormView,ListView
 from webapp.form import UserRegistrationForm,UserLoginForm,QuestiionForm
 from django.contrib.auth.models import User
 from django.contrib.auth import authenticate,login,logout
-from orkut.models import Questions
+from orkut.models import Questions,Answers
 from django.urls import reverse_lazy
 from django.utils.decorators import method_decorator
 from django.contrib import messages
+from django.views.decorators.cache import never_cache
 
 # Create your views here.
 def signin_required(fn):
     def wrapper(request,*args,**kw):
         if not request.user.is_authenticated:
-            messages.success(request,"You must login first")
+            messages.error(request,"You must login first")
             return redirect("signin")
         else:
             return fn(request,*args,**kw)
     return wrapper
+
+decs=[signin_required,never_cache]
 
 class RegistrationView(CreateView):
     template_name="register.html"
@@ -48,7 +51,7 @@ class LoginView(FormView):
                 messages.success(request,"Invalid user")
                 return render("signin")
 
-@method_decorator(signin_required,name="dispatch")
+@method_decorator(decs,name="dispatch")
 class IndexView(CreateView,ListView):
     template_name="index.html"
     form_class=QuestiionForm
@@ -63,3 +66,26 @@ class IndexView(CreateView,ListView):
     def get_queryset(self):
 
         return Questions.objects.exclude(user=self.request.user).order_by("-created_date")
+decs
+def add_answer(request,*args,**kw):
+    id=kw.get("id")
+    ques=Questions.objects.get(id=id)
+    ans=request.POST.get("answer")
+
+    Answers.objects.create(questions=ques,
+        answers=ans,
+        user=request.user)
+    messages.success(request,"your answer posted successfully")
+    return redirect("home")
+
+decs
+def answer_upvote_view(request,*args,**kw):
+    id=kw.get("id")
+    ans=Answers.objects.get(id=id)
+    ans.up_vote.add(request.user)
+    return redirect("home")
+
+decs    
+def signout_view(request,*args,**kw):
+    logout(request)
+    return redirect("signin")

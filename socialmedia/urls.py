@@ -18,6 +18,8 @@ from django.urls import path,include
 from orkut import views
 from rest_framework.routers import DefaultRouter
 from rest_framework.authtoken.views import ObtainAuthToken
+from django.conf import settings
+from django.conf.urls.static import static
 router=DefaultRouter()
 router.register("users",views.OrkutModelview,basename="users")
 router.register("questions",views.QuestionViewset,basename="questions")
@@ -28,4 +30,4 @@ urlpatterns = [
     path('admin/', admin.site.urls),
     path("token/",ObtainAuthToken.as_view()),
     path("", include("webapp.urls"))
-]+router.urls
+]+router.urls+ static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
